@@ -394,6 +394,7 @@
         case V_ALIGN_TOP:
             return index;
         case V_ALIGN_CENTER:
+        case V_ALIGN_BASELINE:
             return index + roundf(extraSpace / 2);
         case V_ALIGN_BOTTOM:
             return index + extraSpace;

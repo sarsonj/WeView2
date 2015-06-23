@@ -9,6 +9,8 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <WeView2/WeViewEnums.h>
 
 #import "UIView+WeView.h"
 #import "WeView.h"
@@ -367,11 +369,7 @@ BOOL _debugMinSize;
     return _vAlign;
 }
 
-- (CGRect)alignSize:(CGSize)size
-         withinRect:(CGRect)rect
-             hAlign:(HAlign)hAlign
-             vAlign:(VAlign)vAlign
-{
+- (CGRect)alignSize:(CGSize)size withinRect:(CGRect)rect hAlign:(HAlign)hAlign vAlign:(VAlign)vAlign baseLineAdjust:(float)baselineAdjust {
     CGRect result;
     result.size = size;
 
@@ -395,6 +393,9 @@ BOOL _debugMinSize;
     {
         case V_ALIGN_TOP:
             result.origin.y = 0;
+            break;
+        case V_ALIGN_BASELINE:
+            result.origin.y = (rect.size.height - size.height) / 2 - baselineAdjust;
             break;
         case V_ALIGN_CENTER:
             result.origin.y = (rect.size.height - size.height) / 2;
@@ -429,12 +430,14 @@ BOOL _debugMinSize;
             {
                 subviewSize.height = cellBounds.size.height;
             }
-
             subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-            subview.frame = [self alignSize:subviewSize
-                                 withinRect:cellBounds
-                                     hAlign:[self subviewCellHAlign:subview]
-                                     vAlign:[self subviewCellVAlign:subview]];
+            float baselineAdjust = 0;
+            if ([subview isKindOfClass:[UILabel class]]) {
+                UILabel *lbl = subview;
+                baselineAdjust = lbl.height * (fabs(lbl.font.descender) / lbl.font.leading) / 2;
+            }
+
+            subview.frame = [self alignSize:subviewSize withinRect:cellBounds hAlign:[self subviewCellHAlign:subview] vAlign:[self subviewCellVAlign:subview] baseLineAdjust:baselineAdjust];
             break;
         }
         case CELL_POSITIONING_FILL:
@@ -468,10 +471,11 @@ BOOL _debugMinSize;
                     subviewSize = FitSizeInRect(cellBounds, desiredSize).size;
                 }
                 subviewSize = CGSizeMax(CGSizeZero, CGSizeFloor(subviewSize));
-                subview.frame = [self alignSize:subviewSize
-                                     withinRect:cellBounds
-                                         hAlign:[self subviewCellHAlign:subview]
-                                         vAlign:[self subviewCellVAlign:subview]];
+                if ([subview isKindOfClass:[UILabel class]]) {
+                    subviewSize.height -= 40;
+                }
+
+                subview.frame = [self alignSize:subviewSize withinRect:cellBounds hAlign:[self subviewCellHAlign:subview] vAlign:[self subviewCellVAlign:subview] baseLineAdjust:0];
             }
         }
         default:
