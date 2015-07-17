@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
-#import <WeView2/WeViewEnums.h>
+//#import <WeView2/WeViewEnums.h>
 
 #import "UIView+WeView.h"
 #import "WeView.h"

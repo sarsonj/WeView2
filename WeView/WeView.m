@@ -117,14 +117,29 @@
     [super layoutSubviews];
 
     NSSet *layouts = [NSSet setWithArray:[self.subviewLayoutMap allValues]];
+    // first non block based layouts
     for (WeViewLayout *layout in layouts)
     {
         NSArray *layoutSubviews = [self subviewsForLayout:layout];
         WeViewAssert(layoutSubviews);
         WeViewAssert([layoutSubviews count] > 0);
-        [layout layoutContentsOfView:self
-                            subviews:layoutSubviews];
+        if (![layout isKindOfClass:[WeViewBlockLayout class]]) {
+            [layout layoutContentsOfView:self
+                                subviews:layoutSubviews];
+        }
     }
+    // then block based layouts
+    for (WeViewLayout *layout in layouts)
+    {
+        NSArray *layoutSubviews = [self subviewsForLayout:layout];
+        WeViewAssert(layoutSubviews);
+        WeViewAssert([layoutSubviews count] > 0);
+        if ([layout isKindOfClass:[WeViewBlockLayout class]]) {
+            [layout layoutContentsOfView:self
+                                subviews:layoutSubviews];
+        }
+    }
+
 }
 
 - (void)sizeToFit
