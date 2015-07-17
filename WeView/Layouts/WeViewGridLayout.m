@@ -161,7 +161,7 @@ typedef struct
 - (void)ensureUniformCellSize
 {
     self.cellSizes = WeViewArrayOfFloatsWithValue(WeViewMaxFloats(self.cellSizes),
-                                                  [self.cellSizes count]);
+                                                  (int) [self.cellSizes count]);
 }
 
 - (NSArray *)axisStretchWeights
@@ -726,10 +726,7 @@ BOOL _isColumnWidthUniform;
             int column = subviewIdx % columnCount;
             subviewIdx++;
 
-            if (!subview.ignoreDesiredSize)
             {
-                //                CGSize cellSize = CGSizeMake([result.rowSizes[row] floatValue],
-                //                                             [result.columnSizes[column] floatValue]);
                 if ([result.rowAxisLayout cellSizingForIndex:row].fixedSize &&
                     [result.columnAxisLayout cellSizingForIndex:column].fixedSize)
                 {

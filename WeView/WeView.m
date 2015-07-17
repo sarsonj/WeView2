@@ -210,6 +210,11 @@
 
 - (WeViewLayout *)addSubviewWithCustomLayout:(UIView *)subview
 {
+    return [self addSubviewWithLayout:subview];
+}
+
+- (WeViewLayout *)addSubviewWithLayout:(UIView *)subview
+{
     WeViewLayout *layout = [WeViewStackLayout stackLayout];
     [self addSubviews:@[subview,]
            withLayout:layout];
