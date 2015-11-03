@@ -6,7 +6,9 @@ Pod::Spec.new do |s|
 	s.license			= 'MIT'
 	s.authors			= { 'Matthew Chen' => 'charlesmchen@gmail.com'}
 	s.source			= { :git => 'https://github.com/sarsonj/WeView2.git' }
-	s.platform			= :ios, '6.0'
+	s.ios.deployment_target = "6.0"
+	s.tvos.deployment_target = "9.0"
+
 	s.source_files		= 'WeView/**/*'
 	s.frameworks		= 'CoreGraphics'
 	s.requires_arc		= true
