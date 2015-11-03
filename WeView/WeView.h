@@ -104,11 +104,17 @@
 // superview's bounds.
 - (WeViewLayout *)addSubviewWithFitLayoutWAspectRatio:(UIView *)subview;
 
+#pragma mark relayout animations
+- (void)animateRelayoutWithDuration:(NSTimeInterval)duration;
+
+
 #pragma mark -
 
 - (void)removeAllSubviews;
 
 - (void)setDebugLayoutOfLayouts:(BOOL)value;
 - (void)setDebugMinSizeOfLayouts:(BOOL)value;
+
+
 
 @end

@@ -434,7 +434,7 @@ BOOL _debugMinSize;
             float baselineAdjust = 0;
             if ([subview isKindOfClass:[UILabel class]]) {
                 UILabel *lbl = subview;
-                baselineAdjust = lbl.height * (fabs(lbl.font.descender) / lbl.font.leading) / 2;
+                baselineAdjust = lbl.height * (fabs(lbl.font.descender) / (lbl.font.ascender + fabs(lbl.font.descender))) / 2;
             }
 
             subview.frame = [self alignSize:subviewSize withinRect:cellBounds hAlign:[self subviewCellHAlign:subview] vAlign:[self subviewCellVAlign:subview] baseLineAdjust:baselineAdjust];
@@ -548,7 +548,7 @@ BOOL _debugMinSize;
                                                    subview.minDesiredSize),
                                          CGSizeMin(subview.maxDesiredSize,
                                                    desiredSize)));
-    
+
     if (subview.ignoreDesiredWidth)
     {
         result.width = 0.f;

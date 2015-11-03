@@ -10,7 +10,7 @@
 
 #pragma once
 
-#import <SenTestingKit/SenTestingKit.h>
+//#import <SenTestingKit/SenTestingKit.h>
 
 #import "WeViewBaseLayoutTests.h"
 

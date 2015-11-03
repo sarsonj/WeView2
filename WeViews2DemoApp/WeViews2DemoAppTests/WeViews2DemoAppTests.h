@@ -10,7 +10,7 @@
 
 #pragma once
 
-#import <SenTestingKit/SenTestingKit.h>
+//#import <SenTestingKit/SenTestingKit.h>
 
 @interface WeViews2DemoAppTests : SenTestCase
 

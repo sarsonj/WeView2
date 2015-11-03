@@ -192,6 +192,49 @@
     return self;
 }
 
+
+#pragma mark - Relayout animations
+
+- (NSArray *)collectViewAndSubviews:(UIView *)view
+{
+    NSMutableArray *result = [NSMutableArray array];
+    [result addObject:view];
+
+    for (UIView *subview in view.subviews)
+    {
+        [result addObjectsFromArray:[self collectViewAndSubviews:subview]];
+    }
+
+    return result;
+}
+
+- (void)animateRelayoutWithDuration:(NSTimeInterval)duration
+{
+    NSArray *collectedViews = [self collectViewAndSubviews:self];
+    for (UIView *view in collectedViews)
+    {
+        [view.layer removeAllAnimations];
+    }
+    [UIView animateWithDuration:duration
+                          delay:0.f
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         for (UIView *view in collectedViews)
+                         {
+                             [view layoutSubviews];
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         for (UIView *view in collectedViews)
+                         {
+                             [view setNeedsLayout];
+                         }
+                     }];
+}
+
+
+
+
 #pragma mark - Needs Layout
 
 - (void)setFrame:(CGRect)frame
