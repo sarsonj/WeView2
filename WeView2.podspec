@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 	s.name				= 'WeView2'
 	s.version			= '1.0.0'
-	s.summary			= ''
+	s.summary			= 'WeView layout framework'
 	s.homepage			= 'http://charlesmchen.github.io/WeView2/'
 	s.license			= 'MIT'
 	s.authors			= { 'Matthew Chen' => 'charlesmchen@gmail.com'}
