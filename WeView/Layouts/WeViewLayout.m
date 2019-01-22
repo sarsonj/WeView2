@@ -528,9 +528,11 @@ BOOL _debugMinSize;
     //
     // TODO: We should this conversion out to [WeView sizeThatFits:], but that will require updating the
     // layouts to handle this case properly as well.
+                      
+    // removed CGFLOAT_MAX, because then ceilf generates float overflow
     if (CGSizeEqualToSize(maxSize, CGSizeZero))
     {
-        maxSize = CGSizeMake(CGFLOAT_MAX * 0.5f, CGFLOAT_MAX * 0.5f);
+        maxSize = CGSizeMake(1000000.0f, 1000000.0f);
     }
 
     // Incorporate the min and max sizes into what's passed to sizeThatFits. This is important for scenarios
